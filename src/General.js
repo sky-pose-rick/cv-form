@@ -2,6 +2,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 
+import InputtableField from './InputtableField';
+
 class General extends Component {
   constructor() {
     super();
@@ -11,7 +13,7 @@ class General extends Component {
     return (
       <div className="General">
         <h2>General Info</h2>
-        <div>Name</div>
+        <InputtableField />
         <div>Email</div>
         <div>Phone Number</div>
       </div>
