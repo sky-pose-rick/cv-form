@@ -9,7 +9,7 @@ class General extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="General">
         <h2>General Info</h2>
         <div>Name</div>
         <div>Email</div>
