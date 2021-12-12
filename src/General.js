@@ -2,9 +2,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 
-import General from './General';
-
-class App extends Component {
+class General extends Component {
   constructor() {
     super();
   }
@@ -12,13 +10,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>CV form App</h1>
-        <General />
-        <div>Schooling</div>
-        <div>Experience</div>
+        <h2>General Info</h2>
+        <div>Name</div>
+        <div>Email</div>
+        <div>Phone Number</div>
       </div>
     );
   }
 }
 
-export default App;
+export default General;
