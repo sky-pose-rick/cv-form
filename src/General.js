@@ -48,6 +48,8 @@ class General extends Component {
         <InputtableField label="Name" value={myName} editable={editable} onChange={this.nameFunc} />
         <InputtableField label="Email" value={email} editable={editable} onChange={this.emailFunc} />
         <InputtableField label="Phone Number" value={phoneNumber} editable={editable} onChange={this.phoneFunc} />
+        {editable && <button type="button">Submit</button>}
+        {!editable && <button type="button">Edit</button>}
       </div>
     );
   }

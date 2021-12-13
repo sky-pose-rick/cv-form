@@ -56,3 +56,13 @@ it('Has a state that changes when inputs are used', () => {
   fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: 'Todd' } });
   expect(screen.getByDisplayValue('Todd')).toBeInTheDocument();
 });
+
+it('Has an edit button when not currently editing', () => {
+  render(<General />);
+  expect(screen.getByText(/Edit/)).toBeInTheDocument();
+});
+
+it('Has a submit button when editing', () => {
+  render(<General editable />);
+  expect(screen.getByText(/Submit/)).toBeInTheDocument();
+});
