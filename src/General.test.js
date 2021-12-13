@@ -5,7 +5,13 @@ import General from './General';
 
 describe('General-Info tests', () => {
   beforeEach(() => {
-    render(<General />);
+    const genFields = {
+      myName: 'Hugh Mann',
+      email: 'first@second.com',
+      phoneNumber: '867-5309',
+    };
+
+    render(<General content={genFields} />);
   });
 
   it('General renders', () => {
@@ -20,5 +26,21 @@ describe('General-Info tests', () => {
   it('Contains number element', () => {
     expect(screen.getByText(/Phone/)).toBeInTheDocument();
   });
+
+  it('General can be passed information', () => {
+    expect(screen.getByText(/Hugh/)).toBeInTheDocument();
+  });
+
   it.todo('Test state changes');
+});
+
+it('Three inputs rendered if general info is editable', () => {
+  const genFields = {
+    myName: 'Hugh Mann',
+    email: 'first@second.com',
+    phoneNumber: '867-5309',
+  };
+
+  render(<General content={genFields} editable />);
+  expect(screen.getAllByRole('textbox')[2]).toBeInTheDocument();
 });
