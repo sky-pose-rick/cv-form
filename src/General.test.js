@@ -30,8 +30,6 @@ describe('General-Info tests', () => {
   it('General can be passed information', () => {
     expect(screen.getByText(/Hugh/)).toBeInTheDocument();
   });
-
-  it.todo('Test state changes');
 });
 
 it('Three inputs rendered if general info is editable', () => {
@@ -65,4 +63,12 @@ it('Has an edit button when not currently editing', () => {
 it('Has a submit button when editing', () => {
   render(<General editable />);
   expect(screen.getByText(/Submit/)).toBeInTheDocument();
+});
+
+const mockOnSubmit = jest.fn(() => {});
+
+it('On submit is called', () => {
+  render(<General editable onSubmit={mockOnSubmit} />);
+  fireEvent.click(screen.getByRole('button'));
+  expect(mockOnSubmit.mock.calls.length).toBe(1);
 });
