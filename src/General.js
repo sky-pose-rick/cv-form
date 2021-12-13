@@ -25,8 +25,8 @@ class General extends Component {
     }
 
     this.nameFunc = this.makeOnFieldChange('myName').bind(this);
-    this.emailFunc = this.makeOnFieldChange('myName').bind(this);
-    this.phoneFunc = this.makeOnFieldChange('myName').bind(this);
+    this.emailFunc = this.makeOnFieldChange('email').bind(this);
+    this.phoneFunc = this.makeOnFieldChange('phoneNumber').bind(this);
   }
 
   makeOnFieldChange(stateName) {
