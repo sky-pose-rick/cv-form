@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>CV form App</h1>
-        <General />
+        <General editable />
         <div>Schooling</div>
         <div>Experience</div>
       </div>

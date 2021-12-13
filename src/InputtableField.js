@@ -2,10 +2,13 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 
 class InputtableField extends Component {
   constructor(props) {
     super(props);
+
+    this.id = uniqid();
   }
 
   // should have two different appearances: editing open or editing close
@@ -20,10 +23,10 @@ class InputtableField extends Component {
     if (editable) {
       return (
         <div className="Inputtable-Field">
-          <p>
+          <label htmlFor={this.id}>
             {`${label}: `}
-          </p>
-          <input type="text" value={value} onChange={onChange} />
+          </label>
+          <input id={this.id} type="text" value={value} onChange={onChange} />
         </div>
       );
     }
