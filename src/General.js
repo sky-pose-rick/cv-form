@@ -13,9 +13,9 @@ class General extends Component {
 
     if (content) {
       this.state = {
-        myName: content.myName,
-        email: content.email,
-        phoneNumber: content.phoneNumber,
+        myName: content.myName ? content.myName : '',
+        email: content.email ? content.email : '',
+        phoneNumber: content.phoneNumber ? content.phoneNumber : '',
         editable: !!editable,
       };
     } else {
