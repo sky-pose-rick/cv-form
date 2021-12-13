@@ -17,6 +17,25 @@ class App extends Component {
       schooling: schooling || {},
       experience: experience || {},
     };
+
+    this.generalSubmit = this.makeSaveChanges('general').bind(this);
+    this.schoolingSubmit = this.makeSaveChanges('schooling').bind(this);
+    this.experienceSubmit = this.makeSaveChanges('experience').bind(this);
+  }
+
+  makeSaveChanges(stateName) {
+    const saveChanges = (content) => {
+      this.setState((state) => {
+        // updates from setState happen asychronously
+        // need a current copy of state when updating local storage
+        const stateCopy = state;
+        stateCopy[stateName] = content;
+        Storage.saveToStorage(stateCopy, Storage.LOCAL_KEY);
+        return stateCopy;
+      });
+    };
+
+    return saveChanges;
   }
 
   render() {
@@ -25,9 +44,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1>CV form App</h1>
-        <General content={general} />
-        <div content={schooling}>Schooling</div>
-        <div content={experience}>Experience</div>
+        <General content={general} onSubmit={this.generalSubmit} />
+        <div content={schooling} onSubmit={this.schoolingSubmit}>Schooling</div>
+        <div content={experience} onSubmit={this.experienceSubmit}>Experience</div>
       </div>
     );
   }
