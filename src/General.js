@@ -9,25 +9,45 @@ class General extends Component {
   constructor(props) {
     super(props);
 
-    this.blankFunc = this.blankFunc.bind(this);
+    const { content } = this.props;
+    if (content) {
+      this.state = {
+        myName: content.myName,
+        email: content.email,
+        phoneNumber: content.phoneNumber,
+      };
+    } else {
+      this.state = {
+        myName: '',
+        email: '',
+        phoneNumber: '',
+      };
+    }
+
+    this.nameFunc = this.makeOnFieldChange('myName').bind(this);
+    this.emailFunc = this.makeOnFieldChange('myName').bind(this);
+    this.phoneFunc = this.makeOnFieldChange('myName').bind(this);
   }
 
-  blankFunc() {
-    console.log(this);
+  makeOnFieldChange(stateName) {
+    const onChange = (e) => {
+      this.setState({
+        [stateName]: e.target.value,
+      });
+    };
+    return onChange;
   }
 
   render() {
-    const { content, editable } = this.props;
-    const myName = content ? content.myName : '';
-    const email = content ? content.email : '';
-    const phoneNumber = content ? content.phoneNumber : '';
+    const { editable } = this.props;
+    const { myName, email, phoneNumber } = this.state;
 
     return (
       <div className="General">
         <h2>General Info</h2>
-        <InputtableField label="Name" value={myName} editable={editable} onChange={this.blankFunc} />
-        <InputtableField label="Email" value={email} editable={editable} onChange={this.blankFunc} />
-        <InputtableField label="Phone Number" value={phoneNumber} editable={editable} onChange={this.blankFunc} />
+        <InputtableField label="Name" value={myName} editable={editable} onChange={this.nameFunc} />
+        <InputtableField label="Email" value={email} editable={editable} onChange={this.emailFunc} />
+        <InputtableField label="Phone Number" value={phoneNumber} editable={editable} onChange={this.phoneFunc} />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import General from './General';
 
@@ -43,4 +43,16 @@ it('Three inputs rendered if general info is editable', () => {
 
   render(<General content={genFields} editable />);
   expect(screen.getAllByRole('textbox')[2]).toBeInTheDocument();
+});
+
+it('Has a state that changes when inputs are used', () => {
+  const genFields = {
+    myName: 'Hugh Mann',
+    email: 'first@second.com',
+    phoneNumber: '867-5309',
+  };
+
+  render(<General content={genFields} editable />);
+  fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: 'Todd' } });
+  expect(screen.getByDisplayValue('Todd')).toBeInTheDocument();
 });
