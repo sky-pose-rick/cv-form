@@ -3,7 +3,29 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EduItem from './EduItem';
 
-it('General renders', () => {
-  render(<EduItem content={null} />);
-  expect(screen.getByText(/./)).toBeInTheDocument();
+describe('EduItem group 1', () => {
+  beforeEach(() => {
+    const content = {
+      school: 'Clown College',
+      degree: 'Underwater Basket Weaving',
+      startYear: '1805',
+      endYear: '1818',
+    };
+
+    render(<EduItem content={content} />);
+  });
+
+  it('EduItem renders', () => {
+    expect(screen.getAllByText(/./)[0]).toBeInTheDocument();
+  });
+
+  it('Contains appropriate labels', () => {
+    expect(screen.getByText(/School/)).toBeInTheDocument();
+    expect(screen.getByText(/Start/)).toBeInTheDocument();
+  });
+
+  it('Contains values passed as props', () => {
+    expect(screen.getByText(/Basket/)).toBeInTheDocument();
+    expect(screen.getByText(/1818/)).toBeInTheDocument();
+  });
 });
