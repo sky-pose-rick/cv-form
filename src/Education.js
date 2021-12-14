@@ -2,8 +2,8 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 
-import InputtableField from './InputtableField';
 import EduItem from './EduItem';
 
 class Education extends Component {
@@ -21,9 +21,17 @@ class Education extends Component {
         degrees: {},
       };
     }
+
+    this.addDegree = this.addDegree.bind(this);
   }
 
-  // addDegree(){}
+  addDegree() {
+    const newKey = uniqid();
+
+    this.setState({
+      degrees: { [newKey]: {} },
+    });
+  }
   // makeOnChange(){}
 
   render() {
@@ -36,7 +44,7 @@ class Education extends Component {
         <ul>
           {degreeArray.map((entry) => <li key={entry[0]}><EduItem content={entry[1]} /></li>)}
         </ul>
-        <button type="button">Add</button>
+        <button type="button" onClick={this.addDegree}>Add</button>
       </div>
     );
   }

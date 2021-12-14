@@ -1,5 +1,7 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Education from './Education';
 
@@ -36,4 +38,15 @@ describe('Education group 1', () => {
   it('Renders two items', () => {
     expect(screen.getAllByText(/End/).length).toBe(2);
   });
+});
+
+it('The add button works', async () => {
+  // render a blank component
+  // click add twice
+  // check if two eduItems appear
+  render(<Education />);
+
+  const addBtn = screen.getByText(/Add/);
+  fireEvent.click(addBtn);
+  expect(screen.getByText(/End/)).toBeInTheDocument();
 });
