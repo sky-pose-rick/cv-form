@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import EduItem from './EduItem';
+import Education from './Education';
 
 describe('Education group 1', () => {
   beforeEach(() => {
@@ -26,10 +26,14 @@ describe('Education group 1', () => {
       },
     };
 
-    render(<EduItem content={content} />);
+    render(<Education content={content} />);
   });
 
   it('Education renders', () => {
     expect(screen.getAllByText(/./)[0]).toBeInTheDocument();
+  });
+
+  it('Renders two items', () => {
+    expect(screen.getAllByText(/End/).length).toBe(2);
   });
 });
