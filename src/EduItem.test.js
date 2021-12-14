@@ -29,3 +29,18 @@ describe('EduItem group 1', () => {
     expect(screen.getByText(/1818/)).toBeInTheDocument();
   });
 });
+
+it('onDelete is called', () => {
+  const content = {
+    school: 'Clown College',
+    degree: 'Underwater Basket Weaving',
+    startYear: '1805',
+    endYear: '1818',
+  };
+
+  const mockOnDelete = jest.fn(() => {});
+
+  render(<EduItem content={content} onDelete={mockOnDelete} />);
+  fireEvent.click(screen.getByText(/Delete/));
+  expect(mockOnDelete.mock.calls.length).toBe(1);
+});
