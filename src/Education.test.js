@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  fireEvent, render, screen, waitFor,
+  fireEvent, render, screen,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Education from './Education';
@@ -28,7 +28,8 @@ describe('Education group 1', () => {
       },
     };
 
-    render(<Education content={content} />);
+    const mockParentFunc = jest.fn(() => {});
+    render(<Education content={content} onSubmit={mockParentFunc} />);
   });
 
   it('Education renders', () => {
@@ -37,6 +38,12 @@ describe('Education group 1', () => {
 
   it('Renders two items', () => {
     expect(screen.getAllByText(/End/).length).toBe(2);
+  });
+
+  it('delete button works', () => {
+    const delBtn = screen.getAllByText(/Delete/)[0];
+    fireEvent.click(delBtn);
+    expect(screen.getAllByText(/End/).length).toBe(1);
   });
 });
 

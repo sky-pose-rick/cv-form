@@ -50,19 +50,19 @@ class Education extends Component {
     return onChange;
   }
 
-  /* makeDelete(parentFunc, key) {
-    const onDelete = (degree) => {
+  makeDelete(parentFunc, key) {
+    const onDelete = () => {
       this.setState((state) => {
         const stateCopy = state;
-        stateCopy.degrees[key] = degree;
+        delete stateCopy.degrees[key];
         // pass new state to parent
         parentFunc(stateCopy);
         return stateCopy;
       });
     };
 
-    return onChange;
-  } */
+    return onDelete;
+  }
 
   render() {
     const { onSubmit } = this.props;
@@ -75,9 +75,10 @@ class Education extends Component {
         <ul>
           {degreeArray.map((entry) => {
             const changeFunc = this.makeOnChange(onSubmit, entry[0]);
+            const deleteFunc = this.makeDelete(onSubmit, entry[0]);
             return (
               <li key={entry[0]}>
-                <EduItem content={entry[1]} onSubmit={changeFunc} />
+                <EduItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
               </li>
             );
           })}
