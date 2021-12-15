@@ -42,10 +42,11 @@ describe('Education group 1', () => {
 
 it('The add button works', async () => {
   // render a blank component
-  // click button and check if eduitem appears
+  // click button twice and check if two eduitems appears
   render(<Education />);
 
   const addBtn = screen.getByText(/Add/);
   fireEvent.click(addBtn);
-  expect(screen.getByText(/End/)).toBeInTheDocument();
+  fireEvent.click(addBtn);
+  expect(screen.getAllByText(/End/).length).toBe(2);
 });

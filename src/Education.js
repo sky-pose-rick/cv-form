@@ -28,8 +28,10 @@ class Education extends Component {
   addDegree() {
     const newKey = uniqid();
 
-    this.setState({
-      degrees: { [newKey]: {} },
+    this.setState((state) => {
+      const stateCopy = state;
+      stateCopy.degrees[newKey] = {};
+      return stateCopy;
     });
   }
 
@@ -47,6 +49,20 @@ class Education extends Component {
 
     return onChange;
   }
+
+  /* makeDelete(parentFunc, key) {
+    const onDelete = (degree) => {
+      this.setState((state) => {
+        const stateCopy = state;
+        stateCopy.degrees[key] = degree;
+        // pass new state to parent
+        parentFunc(stateCopy);
+        return stateCopy;
+      });
+    };
+
+    return onChange;
+  } */
 
   render() {
     const { onSubmit } = this.props;
