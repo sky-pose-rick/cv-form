@@ -42,8 +42,7 @@ describe('Education group 1', () => {
 
 it('The add button works', async () => {
   // render a blank component
-  // click add twice
-  // check if two eduItems appear
+  // click button and check if eduitem appears
   render(<Education />);
 
   const addBtn = screen.getByText(/Add/);

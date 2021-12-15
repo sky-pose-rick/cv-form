@@ -32,9 +32,24 @@ class Education extends Component {
       degrees: { [newKey]: {} },
     });
   }
-  // makeOnChange(){}
+
+  makeOnChange(parentFunc, key) {
+    // have this component insert the key, let child pass the degree
+    const onChange = (degree) => {
+      this.setState((state) => {
+        const stateCopy = state;
+        stateCopy.degrees[key] = degree;
+        // pass new state to parent
+        parentFunc(stateCopy);
+        return stateCopy;
+      });
+    };
+
+    return onChange;
+  }
 
   render() {
+    const { onSubmit } = this.props;
     const { degrees } = this.state;
     const degreeArray = Object.entries(degrees);
 
@@ -42,7 +57,14 @@ class Education extends Component {
       <div className="Education">
         <h2>Education</h2>
         <ul>
-          {degreeArray.map((entry) => <li key={entry[0]}><EduItem content={entry[1]} /></li>)}
+          {degreeArray.map((entry) => {
+            const changeFunc = this.makeOnChange(onSubmit, entry[0]);
+            return (
+              <li key={entry[0]}>
+                <EduItem content={entry[1]} onSubmit={changeFunc} />
+              </li>
+            );
+          })}
         </ul>
         <button type="button" onClick={this.addDegree}>Add</button>
       </div>
