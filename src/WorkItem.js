@@ -128,7 +128,7 @@ class WorkItem extends Component {
         </ul>
         {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
         {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
-        <button type="button" onClick={onDelete}>Delete</button>
+        <button type="button" onClick={onDelete}>Delete Job</button>
       </div>
     );
   }
