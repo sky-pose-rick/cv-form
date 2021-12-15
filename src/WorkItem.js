@@ -108,7 +108,7 @@ class WorkItem extends Component {
 
     return (
       <div className="WorkItem">
-        <h3>Edu Item</h3>
+        <h3>{`${position} at ${company}`}</h3>
         <InputtableField label="Company" value={company} editable={editable} onChange={this.companyFunc} />
         <InputtableField label="Position" value={position} editable={editable} onChange={this.positionFunc} />
         <InputtableField label="Start Year" value={startYear} editable={editable} onChange={this.startYearFunc} />

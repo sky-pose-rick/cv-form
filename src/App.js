@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import General from './General';
 import Education from './Education';
+import Work from './Work';
 import Storage from './Storage';
 
 class App extends Component {
@@ -47,7 +48,7 @@ class App extends Component {
         <h1>CV form App</h1>
         <General content={general} onSubmit={this.generalSubmit} />
         <Education content={schooling} onSubmit={this.schoolingSubmit} />
-        <div content={experience} onSubmit={this.experienceSubmit}>Experience</div>
+        <Work content={experience} onSubmit={this.experienceSubmit} />
       </div>
     );
   }

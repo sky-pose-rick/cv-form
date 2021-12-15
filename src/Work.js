@@ -71,7 +71,7 @@ class Work extends Component {
 
     return (
       <div className="Work">
-        <h2>Jobs</h2>
+        <h2>Work Experience</h2>
         <ul>
           {degreeArray.map((entry) => {
             const changeFunc = this.makeOnChange(onSubmit, entry[0]);

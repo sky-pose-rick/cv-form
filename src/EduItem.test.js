@@ -25,7 +25,7 @@ describe('EduItem group 1', () => {
   });
 
   it('Contains values passed as props', () => {
-    expect(screen.getByText(/Basket/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Basket/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1818/)).toBeInTheDocument();
   });
 });

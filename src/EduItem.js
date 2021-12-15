@@ -78,7 +78,7 @@ class EduItem extends Component {
 
     return (
       <div className="EduItem">
-        <h3>Edu Item</h3>
+        <h3>{`${degree} at ${school}`}</h3>
         <InputtableField label="School" value={school} editable={editable} onChange={this.schoolFunc} />
         <InputtableField label="Degree" value={degree} editable={editable} onChange={this.degreeFunc} />
         <InputtableField label="Start Year" value={startYear} editable={editable} onChange={this.startYearFunc} />
