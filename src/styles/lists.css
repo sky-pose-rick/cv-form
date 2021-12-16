@@ -1,0 +1,7 @@
+ul {
+  width: 66%;
+}
+
+ul .list-item{
+  display: flex;
+}

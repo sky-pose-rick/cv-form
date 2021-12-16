@@ -6,6 +6,9 @@ import React, { Component } from 'react';
 import uniqid from 'uniqid';
 import InputtableField from './InputtableField';
 
+// eslint-disable-next-line no-unused-vars
+import styles from '../styles/lists.css';
+
 class WorkItem extends Component {
   constructor(props) {
     super(props);
@@ -119,8 +122,10 @@ class WorkItem extends Component {
           {
           taskArray.map((entry) => (
             <li key={entry[0]}>
-              <p>{entry[1]}</p>
-              {editable && <button type="button" onClick={this.makeDeleteTask(entry[0]).bind(this)}>Delete Task</button>}
+              <div className="list-item">
+                <p>{entry[1]}</p>
+                {editable && <button type="button" onClick={this.makeDeleteTask(entry[0]).bind(this)}>Delete Task</button>}
+              </div>
             </li>
           ))
           }
