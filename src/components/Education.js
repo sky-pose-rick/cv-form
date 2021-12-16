@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import uniqid from 'uniqid';
 
 import EduItem from './EduItem';
+// eslint-disable-next-line no-unused-vars
+import styles from '../styles/panel.css';
 
 class Education extends Component {
   constructor(props) {

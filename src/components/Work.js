@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import uniqid from 'uniqid';
 
 import WorkItem from './WorkItem';
+// eslint-disable-next-line no-unused-vars
+import styles from '../styles/panel.css';
 
 class Work extends Component {
   constructor(props) {

@@ -15,5 +15,6 @@ h1 {
 
 .columns {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: inherit;
+	width: 100%;
 }

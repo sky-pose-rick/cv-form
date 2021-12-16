@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 
 import InputtableField from './InputtableField';
+// eslint-disable-next-line no-unused-vars
+import styles from '../styles/panel.css';
 
 class General extends Component {
   constructor(props) {
