@@ -78,7 +78,12 @@ class Education extends Component {
           const changeFunc = this.makeOnChange(onSubmit, entry[0]);
           const deleteFunc = this.makeDelete(onSubmit, entry[0]);
           return (
-            <EduItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
+            <EduItem
+              key={entry[0]}
+              content={entry[1]}
+              onSubmit={changeFunc}
+              onDelete={deleteFunc}
+            />
           );
         })}
         <div className="item-add">
