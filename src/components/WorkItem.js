@@ -120,7 +120,7 @@ class WorkItem extends Component {
           taskArray.map((entry) => (
             <li key={entry[0]}>
               <p>{entry[1]}</p>
-              <button type="button" onClick={this.makeDeleteTask(entry[0]).bind(this)}>Delete Task</button>
+              {editable && <button type="button" onClick={this.makeDeleteTask(entry[0]).bind(this)}>Delete Task</button>}
             </li>
           ))
           }
