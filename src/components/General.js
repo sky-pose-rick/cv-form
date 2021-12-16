@@ -74,11 +74,13 @@ class General extends Component {
     return (
       <div className="General">
         <h2>General Info</h2>
-        <InputtableField label="Name" value={myName} editable={editable} onChange={this.nameFunc} />
-        <InputtableField label="Email" value={email} editable={editable} onChange={this.emailFunc} />
-        <InputtableField label="Phone Number" value={phoneNumber} editable={editable} onChange={this.phoneFunc} />
-        {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
-        {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
+        <div className="content-panel">
+          <InputtableField label="Name" value={myName} editable={editable} onChange={this.nameFunc} />
+          <InputtableField label="Email" value={email} editable={editable} onChange={this.emailFunc} />
+          <InputtableField label="Phone Number" value={phoneNumber} editable={editable} onChange={this.phoneFunc} />
+          {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
+          {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
+        </div>
       </div>
     );
   }

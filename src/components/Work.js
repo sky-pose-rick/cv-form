@@ -81,7 +81,9 @@ class Work extends Component {
             <WorkItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
           );
         })}
-        <button type="button" onClick={this.addJob}>Add</button>
+        <div className="item-add">
+          <button type="button" onClick={this.addJob}>Add New Work Entry</button>
+        </div>
       </div>
     );
   }

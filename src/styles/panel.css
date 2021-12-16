@@ -1,10 +1,7 @@
 .General, .Work, .Education{
   width: 50%;
   border: 3px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 h2 {
@@ -15,4 +12,15 @@ h2 {
   margin-bottom: 0px;
 	padding-top: 0.6rem;
 	padding-bottom: 0.6rem;
+}
+
+.content-panel, .WorkItem, .EduItem, .item-add{
+  border-top: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-add{
+  padding-top: 0.5rem;
 }

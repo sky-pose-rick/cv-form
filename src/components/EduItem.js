@@ -83,9 +83,11 @@ class EduItem extends Component {
         <InputtableField label="Degree" value={degree} editable={editable} onChange={this.degreeFunc} />
         <InputtableField label="Start Year" value={startYear} editable={editable} onChange={this.startYearFunc} />
         <InputtableField label="End Year" value={endYear} editable={editable} onChange={this.endYearFunc} />
-        {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
-        {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
-        <button type="button" onClick={onDelete}>Delete</button>
+        <div className="buttons">
+          {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
+          {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
+          <button type="button" onClick={onDelete}>Delete</button>
+        </div>
       </div>
     );
   }

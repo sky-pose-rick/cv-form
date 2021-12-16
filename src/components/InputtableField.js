@@ -4,6 +4,9 @@
 import React, { Component } from 'react';
 import uniqid from 'uniqid';
 
+// eslint-disable-next-line no-unused-vars
+import styles from '../styles/inputs.css';
+
 class InputtableField extends Component {
   constructor(props) {
     super(props);
