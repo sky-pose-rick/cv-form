@@ -74,17 +74,13 @@ class Work extends Component {
     return (
       <div className="Work">
         <h2>Work Experience</h2>
-        <ul>
-          {degreeArray.map((entry) => {
-            const changeFunc = this.makeOnChange(onSubmit, entry[0]);
-            const deleteFunc = this.makeDelete(onSubmit, entry[0]);
-            return (
-              <li key={entry[0]}>
-                <WorkItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
-              </li>
-            );
-          })}
-        </ul>
+        {degreeArray.map((entry) => {
+          const changeFunc = this.makeOnChange(onSubmit, entry[0]);
+          const deleteFunc = this.makeDelete(onSubmit, entry[0]);
+          return (
+            <WorkItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
+          );
+        })}
         <button type="button" onClick={this.addJob}>Add</button>
       </div>
     );

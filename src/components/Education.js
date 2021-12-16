@@ -74,17 +74,13 @@ class Education extends Component {
     return (
       <div className="Education">
         <h2>Education</h2>
-        <ul>
-          {degreeArray.map((entry) => {
-            const changeFunc = this.makeOnChange(onSubmit, entry[0]);
-            const deleteFunc = this.makeDelete(onSubmit, entry[0]);
-            return (
-              <li key={entry[0]}>
-                <EduItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
-              </li>
-            );
-          })}
-        </ul>
+        {degreeArray.map((entry) => {
+          const changeFunc = this.makeOnChange(onSubmit, entry[0]);
+          const deleteFunc = this.makeDelete(onSubmit, entry[0]);
+          return (
+            <EduItem content={entry[1]} onSubmit={changeFunc} onDelete={deleteFunc} />
+          );
+        })}
         <button type="button" onClick={this.addDegree}>Add</button>
       </div>
     );
