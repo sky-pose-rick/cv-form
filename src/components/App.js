@@ -1,61 +1,51 @@
-/* eslint-disable no-useless-constructor */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react';
 
 import General from './General';
 import Education from './Education';
 import Work from './Work';
-import Storage from '../Storage';
+
 // eslint-disable-next-line no-unused-vars
 import styles from '../styles/app.css';
 
-class App extends Component {
-  constructor() {
-    super();
+// eslint-disable-next-line func-names
+const App = function (props) {
+  const {
+    initGeneral, initExperience, initSchooling, saveFunc,
+  } = props;
+  const [general, setGeneral] = useState(initGeneral);
+  const [schooling, setSchooling] = useState(initSchooling);
+  const [experience, setExperience] = useState(initExperience);
+  const [dirty, setDirty] = useState(false);
 
-    const storedObj = Storage.getFromStorage(Storage.LOCAL_KEY);
-
-    const { general, schooling, experience } = storedObj || {};
-    this.state = {
-      general: general || {},
-      schooling: schooling || {},
-      experience: experience || {},
-    };
-
-    this.generalSubmit = this.makeSaveChanges('general').bind(this);
-    this.schoolingSubmit = this.makeSaveChanges('schooling').bind(this);
-    this.experienceSubmit = this.makeSaveChanges('experience').bind(this);
-  }
-
-  makeSaveChanges(stateName) {
+  const makeSaveChanges = (setState) => {
     const saveChanges = (content) => {
-      this.setState((state) => {
-        // updates from setState happen asychronously
-        // need a current copy of state when updating local storage
-        const stateCopy = state;
-        stateCopy[stateName] = content;
-        Storage.saveToStorage(stateCopy, Storage.LOCAL_KEY);
-        return stateCopy;
-      });
+      console.log('new content', content);
+      setState(content);
+      setDirty(true);
     };
 
     return saveChanges;
-  }
+  };
 
-  render() {
-    const { general, schooling, experience } = this.state;
+  useEffect(() => {
+    if (dirty) {
+      const combinedObj = { general, schooling, experience };
+      saveFunc(combinedObj);
+      setDirty(false);
+    }
+  }, [dirty]);
 
-    return (
-      <div className="App">
-        <h1>CV form App</h1>
-        <General content={general} onSubmit={this.generalSubmit} />
-        <div className="columns">
-          <Education content={schooling} onSubmit={this.schoolingSubmit} />
-          <Work content={experience} onSubmit={this.experienceSubmit} />
-        </div>
+  return (
+    <div className="App">
+      <h1>CV form App</h1>
+      <General content={general} onSubmit={makeSaveChanges(setGeneral)} />
+      <div className="columns">
+        <Education content={schooling} onSubmit={makeSaveChanges(setSchooling)} />
+        <Work content={experience} onSubmit={makeSaveChanges(setExperience)} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

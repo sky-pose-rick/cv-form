@@ -24,7 +24,7 @@ const Education = function (props) {
       const shallowCopy = { ...degrees };
       delete shallowCopy[key];
       setDegrees(shallowCopy);
-      parentFunc(shallowCopy);
+      parentFunc({ degrees: shallowCopy });
     };
 
     return onDelete;
@@ -36,7 +36,7 @@ const Education = function (props) {
       const shallowCopy = { ...degrees };
       shallowCopy[key] = degree;
       setDegrees(shallowCopy);
-      parentFunc(shallowCopy);
+      parentFunc({ degrees: shallowCopy });
     };
 
     return onChange;

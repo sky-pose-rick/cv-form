@@ -24,7 +24,7 @@ const Work = function (props) {
       const shallowCopy = { ...jobs };
       delete shallowCopy[key];
       setJobs(shallowCopy);
-      parentFunc(shallowCopy);
+      parentFunc({ jobs: shallowCopy });
     };
 
     return onDelete;
@@ -36,7 +36,7 @@ const Work = function (props) {
       const shallowCopy = { ...jobs };
       shallowCopy[key] = degree;
       setJobs(shallowCopy);
-      parentFunc(shallowCopy);
+      parentFunc({ jobs: shallowCopy });
     };
 
     return onChange;
