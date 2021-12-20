@@ -55,7 +55,7 @@ describe('Editable WorkItem', () => {
         itemizedItem2: 'Take a dive',
       },
     };
-    render(<WorkItem content={content} onDelete={mockOnDelete} editable />);
+    render(<WorkItem content={content} onDelete={mockOnDelete} initialEditable />);
   });
 
   it('add task is rendered', () => {

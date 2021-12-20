@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-useless-constructor */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import uniqid from 'uniqid';
 import InputtableField from './InputtableField';
@@ -9,136 +7,94 @@ import InputtableField from './InputtableField';
 // eslint-disable-next-line no-unused-vars
 import styles from '../styles/lists.css';
 
-class WorkItem extends Component {
-  constructor(props) {
-    super(props);
+// eslint-disable-next-line func-names
+const WorkItem = function (props) {
+  const {
+    content, initialEditable, onSubmit, onDelete,
+  } = props;
 
-    const { content, editable, onSubmit } = this.props;
+  const [company, setCompany] = useState(content && content.company ? content.company : '');
+  const [position, setPosition] = useState(content && content.position ? content.position : '');
+  const [startYear, setStartYear] = useState(content && content.startYear ? content.startYear : '');
+  const [endYear, setEndYear] = useState(content && content.endYear ? content.endYear : '');
+  const [tasks, setTasks] = useState(content && content.tasks ? content.tasks : {});
+  const [editable, setEditable] = useState(!!initialEditable);
+  const [nextKey, setNextKey] = useState(uniqid());
+  const [nextTask, setNextTask] = useState('');
 
-    if (content) {
-      this.state = {
-        company: content.company ? content.company : '',
-        position: content.position ? content.position : '',
-        startYear: content.startYear ? content.startYear : '',
-        endYear: content.endYear ? content.endYear : '',
-        tasks: content.tasks ? content.tasks : {},
-        editable: !!editable,
-        nextKey: uniqid(),
-        nextTask: '',
-      };
-    } else {
-      this.state = {
-        company: '',
-        position: '',
-        startYear: '',
-        endYear: '',
-        tasks: {},
-        editable: !!editable,
-        nextKey: uniqid(),
-        nextTask: '',
-      };
-    }
+  const toggleEdit = () => {
+    setEditable(!editable);
+  };
 
-    this.companyFunc = this.makeOnFieldChange('company').bind(this);
-    this.positionFunc = this.makeOnFieldChange('position').bind(this);
-    this.startYearFunc = this.makeOnFieldChange('startYear').bind(this);
-    this.endYearFunc = this.makeOnFieldChange('endYear').bind(this);
-    this.taskFunc = this.makeOnFieldChange('nextTask').bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.onSubmit = this.makeOnSubmit(onSubmit);
-    this.addTask = this.addTask.bind(this);
-  }
-
-  toggleEdit() {
-    this.setState((state) => ({ editable: !state.editable }));
-  }
-
-  makeOnSubmit(parentFunc) {
-    const onSubmit = () => {
-      this.toggleEdit();
+  const makeOnSubmit = (parentFunc) => {
+    const onSubmitFunc = () => {
+      toggleEdit();
 
       if (parentFunc) {
-        const {
-          company, position, startYear, endYear, tasks,
-        } = this.state;
-
         const obj = {
           company, position, startYear, endYear, tasks,
         };
         parentFunc(obj);
       }
     };
+    return onSubmitFunc;
+  };
 
-    return onSubmit;
-  }
-
-  makeOnFieldChange(stateName) {
+  const makeOnFieldChange = (setState) => {
     const onChange = (e) => {
-      this.setState({
-        [stateName]: e.target.value,
-      });
+      setState(e.target.value);
     };
     return onChange;
-  }
+  };
 
-  addTask() {
-    this.setState((state) => {
-      const { tasks, nextTask, nextKey } = state;
-      tasks[nextKey] = nextTask;
-      return { tasks, nextTask: '', nextKey: uniqid() };
-    });
-  }
+  const addTask = () => {
+    const shallowCopy = { ...tasks };
+    shallowCopy[nextKey] = nextTask;
+    setTasks(shallowCopy);
+    setNextKey(uniqid());
+    setNextTask('');
+  };
 
-  makeDeleteTask(key) {
+  const makeDeleteTask = (key) => {
     const deleteTask = () => {
-      this.setState((state) => {
-        const stateCopy = state;
-        delete stateCopy.tasks[key];
-        return stateCopy;
-      });
+      // make a shallow copy so that setTask detects a change
+      const shallowCopy = { ...tasks };
+      delete shallowCopy[key];
+      setTasks(shallowCopy);
     };
 
     return deleteTask;
-  }
+  };
 
-  render() {
-    const {
-      company, position, startYear, endYear, editable, tasks, nextTask,
-    } = this.state;
-    const taskArray = Object.entries(tasks);
+  return (
+    <div className="WorkItem">
+      <h3>{`${position} at ${company}`}</h3>
+      <InputtableField label="Company" value={company} editable={editable} onChange={makeOnFieldChange(setCompany)} />
+      <InputtableField label="Position" value={position} editable={editable} onChange={makeOnFieldChange(setPosition)} />
+      <InputtableField label="Start Year" value={startYear} editable={editable} onChange={makeOnFieldChange(setStartYear)} />
+      <InputtableField label="End Year" value={endYear} editable={editable} onChange={makeOnFieldChange(setEndYear)} />
+      {editable && <InputtableField label="Add Task" value={nextTask} editable={editable} onChange={makeOnFieldChange(setNextTask)} />}
+      {editable && <button type="button" onClick={addTask}>Submit Task</button>}
+      <ul>
+        {
+        Object.entries(tasks).map((entry) => (
+          <li key={entry[0]}>
+            <div className="list-item">
+              <p>{entry[1]}</p>
+              {editable && <button type="button" onClick={makeDeleteTask(entry[0])}>Delete Task</button>}
+            </div>
+          </li>
+        ))
+        }
 
-    const { onDelete } = this.props;
-
-    return (
-      <div className="WorkItem">
-        <h3>{`${position} at ${company}`}</h3>
-        <InputtableField label="Company" value={company} editable={editable} onChange={this.companyFunc} />
-        <InputtableField label="Position" value={position} editable={editable} onChange={this.positionFunc} />
-        <InputtableField label="Start Year" value={startYear} editable={editable} onChange={this.startYearFunc} />
-        <InputtableField label="End Year" value={endYear} editable={editable} onChange={this.endYearFunc} />
-        {editable && <InputtableField label="Add Task" value={nextTask} editable={editable} onChange={this.taskFunc} />}
-        {editable && <button type="button" onClick={this.addTask}>Submit Task</button>}
-        <ul>
-          {
-          taskArray.map((entry) => (
-            <li key={entry[0]}>
-              <div className="list-item">
-                <p>{entry[1]}</p>
-                {editable && <button type="button" onClick={this.makeDeleteTask(entry[0]).bind(this)}>Delete Task</button>}
-              </div>
-            </li>
-          ))
-          }
-
-        </ul>
-        <div className="buttons">
-          {editable && <button type="button" onClick={this.onSubmit}>Submit</button>}
-          {!editable && <button type="button" onClick={this.toggleEdit}>Edit</button>}
-          <button type="button" onClick={onDelete}>Delete Job</button>
-        </div>
+      </ul>
+      <div className="buttons">
+        {editable && <button type="button" onClick={makeOnSubmit(onSubmit)}>Submit</button>}
+        {!editable && <button type="button" onClick={toggleEdit}>Edit</button>}
+        <button type="button" onClick={onDelete}>Delete Job</button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default WorkItem;
