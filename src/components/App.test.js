@@ -15,10 +15,9 @@ describe('App tests', () => {
     expect(screen.getByText(/General/)).toBeInTheDocument();
   });
   it('Contains schooling component', () => {
-    expect(screen.getByText(/Education/)).toBeInTheDocument();
+    expect(screen.getByText(/Education Entry/)).toBeInTheDocument();
   });
   it('Contains experience component', () => {
     expect(screen.getByText(/Experience/)).toBeInTheDocument();
   });
-  it.todo('Test state changes');
 });
