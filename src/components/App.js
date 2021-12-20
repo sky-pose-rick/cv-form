@@ -20,7 +20,6 @@ const App = function (props) {
 
   const makeSaveChanges = (setState) => {
     const saveChanges = (content) => {
-      console.log('new content', content);
       setState(content);
       setDirty(true);
     };

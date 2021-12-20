@@ -10,7 +10,6 @@ const loadedExperience = (stored && stored.experience) ? stored.experience : {};
 console.log('saved object', loadedGeneral, loadedSchooling, loadedExperience);
 
 const saveFunc = (combinedObj) => {
-  console.log('super object', combinedObj);
   Storage.saveToStorage(combinedObj, Storage.LOCAL_KEY);
 };
 
