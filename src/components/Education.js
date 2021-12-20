@@ -1,97 +1,67 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-useless-constructor */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import uniqid from 'uniqid';
 
 import EduItem from './EduItem';
 // eslint-disable-next-line no-unused-vars
 import styles from '../styles/panel.css';
 
-class Education extends Component {
-  constructor(props) {
-    super(props);
+// eslint-disable-next-line func-names
+const Education = function (props) {
+  const { content, onSubmit } = props;
 
-    const { content } = this.props;
+  const [degrees, setDegrees] = useState(content && content.degrees ? content.degrees : {});
 
-    if (content) {
-      this.state = {
-        degrees: content.degrees ? content.degrees : {},
-      };
-    } else {
-      this.state = {
-        degrees: {},
-      };
-    }
-
-    this.addDegree = this.addDegree.bind(this);
-  }
-
-  addDegree() {
+  const addDegree = () => {
     const newKey = uniqid();
+    const shallowCopy = { ...degrees };
+    shallowCopy[newKey] = {};
+    setDegrees(shallowCopy);
+  };
 
-    this.setState((state) => {
-      const stateCopy = state;
-      stateCopy.degrees[newKey] = {};
-      return stateCopy;
-    });
-  }
-
-  makeOnChange(parentFunc, key) {
-    // have this component insert the key, let child pass the degree
-    const onChange = (degree) => {
-      this.setState((state) => {
-        const stateCopy = state;
-        stateCopy.degrees[key] = degree;
-        // pass new state to parent
-        parentFunc(stateCopy);
-        return stateCopy;
-      });
-    };
-
-    return onChange;
-  }
-
-  makeDelete(parentFunc, key) {
+  const makeDelete = (parentFunc, key) => {
     const onDelete = () => {
-      this.setState((state) => {
-        const stateCopy = state;
-        delete stateCopy.degrees[key];
-        // pass new state to parent
-        parentFunc(stateCopy);
-        return stateCopy;
-      });
+      const shallowCopy = { ...degrees };
+      delete shallowCopy[key];
+      setDegrees(shallowCopy);
+      parentFunc(shallowCopy);
     };
 
     return onDelete;
-  }
+  };
 
-  render() {
-    const { onSubmit } = this.props;
-    const { degrees } = this.state;
-    const degreeArray = Object.entries(degrees);
+  const makeOnChange = (parentFunc, key) => {
+    // have this component insert the key, let child pass the degree
+    const onChange = (degree) => {
+      const shallowCopy = { ...degrees };
+      shallowCopy[key] = degree;
+      setDegrees(shallowCopy);
+      parentFunc(shallowCopy);
+    };
 
-    return (
-      <div className="Education">
-        <h2>Education</h2>
-        {degreeArray.map((entry) => {
-          const changeFunc = this.makeOnChange(onSubmit, entry[0]);
-          const deleteFunc = this.makeDelete(onSubmit, entry[0]);
-          return (
-            <EduItem
-              key={entry[0]}
-              content={entry[1]}
-              onSubmit={changeFunc}
-              onDelete={deleteFunc}
-            />
-          );
-        })}
-        <div className="item-add">
-          <button type="button" onClick={this.addDegree}>Add New Education Entry</button>
-        </div>
+    return onChange;
+  };
+
+  return (
+    <div className="Education">
+      <h2>Education</h2>
+      {Object.entries(degrees).map((entry) => {
+        const changeFunc = makeOnChange(onSubmit, entry[0]);
+        const deleteFunc = makeDelete(onSubmit, entry[0]);
+        return (
+          <EduItem
+            key={entry[0]}
+            content={entry[1]}
+            onSubmit={changeFunc}
+            onDelete={deleteFunc}
+          />
+        );
+      })}
+      <div className="item-add">
+        <button type="button" onClick={addDegree}>Add New Education Entry</button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Education;
