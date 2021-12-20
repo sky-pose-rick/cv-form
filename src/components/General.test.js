@@ -39,7 +39,7 @@ it('Three inputs rendered if general info is editable', () => {
     phoneNumber: '867-5309',
   };
 
-  render(<General content={genFields} editable />);
+  render(<General content={genFields} initialEditable />);
   expect(screen.getAllByRole('textbox')[2]).toBeInTheDocument();
 });
 
@@ -50,7 +50,7 @@ it('Has a state that changes when inputs are used', () => {
     phoneNumber: '867-5309',
   };
 
-  render(<General content={genFields} editable />);
+  render(<General content={genFields} initialEditable />);
   fireEvent.change(screen.getAllByRole('textbox')[0], { target: { value: 'Todd' } });
   expect(screen.getByDisplayValue('Todd')).toBeInTheDocument();
 });
@@ -61,14 +61,14 @@ it('Has an edit button when not currently editing', () => {
 });
 
 it('Has a submit button when editing', () => {
-  render(<General editable />);
+  render(<General initialEditable />);
   expect(screen.getByText(/Submit/)).toBeInTheDocument();
 });
 
 const mockOnSubmit = jest.fn(() => {});
 
 it('On submit is called', () => {
-  render(<General editable onSubmit={mockOnSubmit} />);
+  render(<General initialEditable onSubmit={mockOnSubmit} />);
   fireEvent.click(screen.getByRole('button'));
   expect(mockOnSubmit.mock.calls.length).toBe(1);
 });
